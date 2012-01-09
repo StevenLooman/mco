@@ -1,9 +1,9 @@
 MCO
 ===
 
-The Mars Climate Orbiter (MCO) lost communication due to a conversion error from force in pounds to Newton. Resulting, an erroneous trajectory was computed using this incorrect data.
+The software of the Mars Climate Orbiter (MCO) performed an incorrect calculation due to a conversion error between force in pounds and newton. Resulting, an erroneous trajectory was computed using this incorrect data and communication with the MCO was lost.
 
-The MCO library provides a means to correctly keep track of measured data without worrying about using measurements with different units.
+The MCO library provides a means to correctly keep track of measured data and conversion between data types without worrying about using different types/units.
 
 MCO is loosely based on [JSR-275][1]. Concepts have been re-used from this library.
 
