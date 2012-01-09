@@ -32,4 +32,18 @@ module.exports = {
         assert.equal('m/s', metrePerSecond.getSymbol());
     },
 
+    test_BaseUnit_equals: function(beforeExit, assert) {
+        var metre1 = new mco.BaseUnit('m');
+        var metre2 = new mco.BaseUnit('m');
+
+        assert.equal(metre1.equals(metre2), true);
+    },
+
+    test_BaseUnit_not_equals: function(beforeExit, assert) {
+        var metre = new mco.BaseUnit('m');
+        var second = new mco.BaseUnit('s');
+
+        assert.equal(metre.equals(second), false);
+    },
+
 };

@@ -36,4 +36,28 @@ module.exports = {
         assert.equal('m*m*m', cubicMetre.getSymbol());
         assert.equal('[m*m*m]', cubicMetre.toString());
     },
+
+    test_ProductUnit_equals: function(beforeExit, assert) {
+        var metre1 = new mco.BaseUnit('m');
+        var second1 = new mco.BaseUnit('s');
+        var metrePerSecond1 = metre1.divide(second1);
+
+        var metre2 = new mco.BaseUnit('m');
+        var second2 = new mco.BaseUnit('s');
+        var metrePerSecond2 = metre2.divide(second2);
+
+        assert.equal(metrePerSecond1.equals(metrePerSecond2), true);
+    },
+
+    test_ProductUnit_not_equals: function(beforeExit, assert) {
+        var metre = new mco.BaseUnit('m');
+        var second = new mco.BaseUnit('s');
+        var metrePerSecond = metre.divide(second);
+
+        var newton = new mco.BaseUnit('N');
+        var newtonMetre = newton.multiply(metre);
+
+        assert.equal(metrePerSecond.equals(newtonMetre), false);
+    },
+
 };
