@@ -27,4 +27,23 @@ module.exports = {
         assert.eql(0, temperatureCelcius.getValue());
         assert.eql('°C', temperatureCelcius.getUnit().getSymbol());
     },
+
+    test_UnitTransformer_inverse: function(beforeExit, assert) {
+        var fahrenheit = new mco.BaseUnit(mco.Quantity.Temperature, '°F');
+        var celcius = new mco.BaseUnit(mco.Quantity.Temperature, '°C');
+        var fahrenheitToCelcius = new mco.UnitTransformer(
+            fahrenheit, celcius, [ new mco.AddOperation(-32), new mco.MultiplyOperation(5/9) ]
+        );
+        var temperatureFahrenheit = new mco.UnitValue(5, fahrenheit);
+        var temperatureCelcius = fahrenheitToCelcius.apply(temperatureFahrenheit);
+        assert.equal(-15, temperatureCelcius.getValue()); // ensure -15 °C
+        assert.eql(celcius, temperatureCelcius.getUnit());
+
+        var celciusToFahrenheit = fahrenheitToCelcius.inverse();
+        var result = celciusToFahrenheit.apply(temperatureCelcius);
+        assert.eql(temperatureFahrenheit.getUnit(), result.getUnit());
+        var valueDifference = Math.abs(temperatureFahrenheit.getValue() - result.getValue()); // account for rounding errors
+        assert.equal(valueDifference < 1e-10, true);
+    },
+
 };
