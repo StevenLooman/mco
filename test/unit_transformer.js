@@ -3,8 +3,8 @@ var mco = require('..');
 
 module.exports = {
     test_UnitTransformer_apply_MultiplyOperation: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit('m');
-        var feet = new mco.BaseUnit('ft');
+        var metre = new mco.BaseUnit(mco.Quantity.Length, 'm');
+        var feet = new mco.BaseUnit(mco.Quantity.Length, 'ft');
         var metreToFeet = new mco.UnitTransformer(
             metre, feet, [ new mco.MultiplyOperation(3.2808399) ]
         );
@@ -16,8 +16,8 @@ module.exports = {
     },
 
     test_UnitTransformer_apply_AddOperation: function(beforeExit, assert) {
-        var kelvin = new mco.BaseUnit('K');
-        var celcius = new mco.BaseUnit('°C');
+        var kelvin = new mco.BaseUnit(mco.Quantity.Temperature, 'K');
+        var celcius = new mco.BaseUnit(mco.Quantity.Temperature, '°C');
         var kelvinToCelcius = new mco.UnitTransformer(
             kelvin, celcius, [ new mco.AddOperation(-273.15) ]
         );
