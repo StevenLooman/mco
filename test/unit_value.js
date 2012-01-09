@@ -29,5 +29,31 @@ module.exports = {
 
         assert.equal(5, result.getValue(metre));
         assert.equal(result.getUnit(), metre);
-    }
+    },
+
+    test_UnitValue_multiply: function(beforeExit, assert) {
+        var newton = new mco.BaseUnit('N');
+        var metre = new mco.BaseUnit('m');
+        var unitValue1 = new mco.UnitValue(10, newton);
+        var unitValue2 = new mco.UnitValue(5, metre);
+
+        var newtonMetre = newton.multiply(metre);
+        var result = unitValue1.multiply(unitValue2);
+
+        assert.equal(50, result.getValue());
+        assert.eql(newtonMetre, result.getUnit());
+    },
+
+    test_UnitValue_divide: function(beforeExit, assert) {
+        var metre = new mco.BaseUnit('m');
+        var second = new mco.BaseUnit('s');
+        var unitValue1 = new mco.UnitValue(10, metre);
+        var unitValue2 = new mco.UnitValue(5, second);
+
+        var metrePerSecond = metre.divide(second);
+        var result = unitValue1.divide(unitValue2);
+
+        assert.equal(2, result.getValue());
+        assert.eql(metrePerSecond, result.getUnit());
+    },
 };
