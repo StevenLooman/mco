@@ -7,4 +7,4 @@ The MCO library provides a means to correctly keep track of measured data withou
 
 MCO is loosely based on [JSR-275][1]. Concepts have been re-used from this library.
 
-[1]: http://jsr-275.dev.java.net/
+[1]: http://www.jcp.org/en/jsr/detail?id=275
