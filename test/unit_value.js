@@ -3,14 +3,14 @@ var mco = require('..');
 
 module.exports = {
     test_UnitValue_toString: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.Length, 'm');
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
         var unitValue = new mco.UnitValue(10, metre);
 
         assert.eql('10 [m]', unitValue.toString());
     },
 
     test_UnitValue_add: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.Length, 'm');
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
         var unitValue1 = new mco.UnitValue(10, metre);
         var unitValue2 = new mco.UnitValue(5, metre);
 
@@ -21,7 +21,7 @@ module.exports = {
     },
 
     test_UnitValue_subtract: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.Length, 'm');
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
         var unitValue1 = new mco.UnitValue(10, metre);
         var unitValue2 = new mco.UnitValue(5, metre);
 
@@ -32,8 +32,8 @@ module.exports = {
     },
 
     test_UnitValue_multiply: function(beforeExit, assert) {
-        var newton = new mco.BaseUnit(mco.Quantity.Force, 'N');
-        var metre = new mco.BaseUnit(mco.Quantity.Length, 'm');
+        var newton = new mco.BaseUnit(mco.Quantity.FORCE, 'N');
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
         var unitValue1 = new mco.UnitValue(10, newton);
         var unitValue2 = new mco.UnitValue(5, metre);
 
@@ -45,8 +45,8 @@ module.exports = {
     },
 
     test_UnitValue_divide: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.Length, 'm');
-        var second = new mco.BaseUnit(mco.Quantity.Time, 's');
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+        var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
         var unitValue1 = new mco.UnitValue(10, metre);
         var unitValue2 = new mco.UnitValue(5, second);
 

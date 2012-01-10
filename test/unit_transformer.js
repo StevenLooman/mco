@@ -3,8 +3,8 @@ var mco = require('..');
 
 module.exports = {
     test_UnitTransformer_apply_MultiplyOperation: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.Length, 'm');
-        var feet = new mco.BaseUnit(mco.Quantity.Length, 'ft');
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+        var feet = new mco.BaseUnit(mco.Quantity.LENGTH, 'ft');
         var metreToFeet = new mco.UnitTransformer(
             metre, feet, [ new mco.MultiplyOperation(3.2808399) ]
         );
@@ -16,8 +16,8 @@ module.exports = {
     },
 
     test_UnitTransformer_apply_AddOperation: function(beforeExit, assert) {
-        var kelvin = new mco.BaseUnit(mco.Quantity.Temperature, 'K');
-        var celcius = new mco.BaseUnit(mco.Quantity.Temperature, '°C');
+        var kelvin = new mco.BaseUnit(mco.Quantity.TEMPERATURE, 'K');
+        var celcius = new mco.BaseUnit(mco.Quantity.TEMPERATURE, '°C');
         var kelvinToCelcius = new mco.UnitTransformer(
             kelvin, celcius, [ new mco.AddOperation(-273.15) ]
         );
@@ -29,8 +29,8 @@ module.exports = {
     },
 
     test_UnitTransformer_inverse: function(beforeExit, assert) {
-        var fahrenheit = new mco.BaseUnit(mco.Quantity.Temperature, '°F');
-        var celcius = new mco.BaseUnit(mco.Quantity.Temperature, '°C');
+        var fahrenheit = new mco.BaseUnit(mco.Quantity.TEMPERATURE, '°F');
+        var celcius = new mco.BaseUnit(mco.Quantity.TEMPERATURE, '°C');
         var fahrenheitToCelcius = new mco.UnitTransformer(
             fahrenheit, celcius, [ new mco.AddOperation(-32), new mco.MultiplyOperation(5/9) ]
         );
