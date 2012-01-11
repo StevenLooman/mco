@@ -21,7 +21,7 @@ module.exports = {
     },
 
     test_BaseUnit_multiply: function(beforeExit, assert) {
-        var newton = new mco.BaseUnit(mco.Quantity.Force, 'N');
+        var newton = new mco.BaseUnit(mco.Quantity.FORCE, 'N');
         var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
 
         var newtonMetre = newton.multiply(metre);
