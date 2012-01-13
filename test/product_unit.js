@@ -1,3 +1,4 @@
+var eyes = require('eyes');
 var mco = require('..');
 
 
@@ -58,6 +59,35 @@ module.exports = {
         var newtonMetre = newton.multiply(metre);
 
         assert.equal(metrePerSecond.equals(newtonMetre), false);
+    },
+
+    test_ProductUnit_getSimplified_to_BaseUnit: function(beforeExit, assert) {
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+        var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
+        var metrePerSecond = metre.divide(second);
+        var input = metre.divide(second).multiply(second);
+
+        var result = input.getSimplified();
+        assert.equal(true, result.equals(metre));
+    },
+
+    test_ProductUnit_getSimplify_to_ProductUnit: function(beforeExit, assert) {
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+        var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
+        var metrePerSecond = metre.divide(second);
+        var input = metre.divide(second).multiply(second).divide(second);
+
+        var result = input.getSimplified();
+        assert.equal(true, result.equals(metrePerSecond));
+    },
+
+    test_ProductUnit_getSimplify_to_ProductUnit: function(beforeExit, assert) {
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+        var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
+        var metrePerSecond = metre.divide(second);
+
+        var result = metrePerSecond.getSimplified();
+        assert.equal(true, result.equals(metrePerSecond));
     },
 
 };
