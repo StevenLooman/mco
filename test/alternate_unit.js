@@ -32,4 +32,11 @@ module.exports = {
         assert.equal(true, alt1.equals(alt2));
     },
 
+    test_AlternateUnit_getSimplified: function(beforeExit, assert) {
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+        var alt = new mco.AlternateUnit(mco.Quantity.LENGTH, 'c', metre);
+
+        assert.equal(true, alt.equals(alt.getSimplified()));
+    },
+
 };

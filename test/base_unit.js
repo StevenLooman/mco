@@ -52,4 +52,10 @@ module.exports = {
         assert.equal(metre.equals(second), false);
     },
 
+    test_BaseUnit_getSimplified: function(beforeExit, assert) {
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+
+        assert.equal(true, metre.equals(metre.getSimplified()));
+    },
+
 };
