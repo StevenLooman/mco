@@ -1,6 +1,7 @@
 var mco = require('./');
 var MetricSystem = mco.MetricSystem;
 
+
 // trying to add two values with different types
 try {
     var m = new mco.UnitValue(5, MetricSystem.METRE);
@@ -21,7 +22,6 @@ console.log('Sally\'s speed', sallySpeed.toString());
 console.log('Sally\'s time in minutes', sallyTimeMinutes.toString());
 console.log('Sally\'s time in seconds', sallyTimeSeconds.toString());
 console.log('Sally\'s distance', sallyDistance.toString());
-console.log('Sally\'s distance simplified', sallyDistance.getSimplified().toString());
 
 
 // homework: Hank is accelerating with 10 m/s^2. How fast is he going after 25 seconds?

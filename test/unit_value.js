@@ -92,6 +92,19 @@ module.exports = {
 
         var result = unitValue1.divide(unitValue2).multiply(unitValue2);
 
+        assert.equal(true, result.equals(result.getSimplified()));
+    },
+
+    test_UnitValue_getSimplified_no_autoSimplify: function(beforeExit, assert) {
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+        var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
+        var unitValue1 = new mco.UnitValue(10, metre);
+        var unitValue2 = new mco.UnitValue(10, second);
+
+        mco.UnitValue.autoSimplify = false;
+        var result = unitValue1.divide(unitValue2).multiply(unitValue2);
+
         assert.equal(false, result.equals(result.getSimplified()));
+        mco.UnitValue.autoSimplify = true;
     },
 };
