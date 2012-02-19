@@ -28,6 +28,7 @@ console.log('Sally\'s distance', sallyDistance.toString());
 var hankAcceleration = new mco.UnitValue(10, MetricSystem.METRES_PER_SQUARE_SECOND);
 var hankTime = new mco.UnitValue(25, MetricSystem.SECOND);
 var hankSpeed = hankAcceleration.multiply(hankTime);
+
 console.log('Hank\'s acceleration', hankAcceleration.toString());
 console.log('Hank\'s time', hankTime.toString());
 console.log('Hank\'s speed', hankSpeed.getSimplified().toString());
