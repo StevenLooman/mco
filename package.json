@@ -1,7 +1,7 @@
 {
     "name": "mco",
     "description": "Library for correct unit value keeping, loosely based on JSR-275",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "author": "Steven Looman <steven.looman@gmail.com>",
     "keywords": [ "type", "unit", "measurement", "metric", "si", "conversion" ],
     "licenses" : [
