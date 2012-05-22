@@ -1,4 +1,3 @@
-var eyes = require('eyes');
 var mco = require('..');
 
 
