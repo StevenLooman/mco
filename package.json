@@ -1,7 +1,7 @@
 {
     "name": "mco",
     "description": "Library for correct unit value keeping, loosely based on JSR-275",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "author": "Steven Looman <steven.looman@gmail.com>",
     "keywords": [ "type", "unit", "measurement", "metric", "si", "conversion" ],
     "licenses" : [
@@ -22,6 +22,9 @@
     },
     "main": "index.js",
     "engines": { "node": ">= 0.6.0" },
+    "scripts": {
+        "test": "expresso test/*"
+    },
     "repository": {
         "type": "git",
         "url": "git://github.com/StevenLooman/mco.git"
