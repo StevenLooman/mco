@@ -1,5 +1,6 @@
 var mco = require('./');
 var MetricSystem = mco.MetricSystem;
+var UsCustomarySystem = mco.UsCustomarySystem;
 
 
 // trying to add two values with different types
@@ -31,4 +32,12 @@ var hankSpeed = hankAcceleration.multiply(hankTime);
 
 console.log('Hank\'s acceleration', hankAcceleration.toString());
 console.log('Hank\'s time', hankTime.toString());
-console.log('Hank\'s speed', hankSpeed.getSimplified().toString());
+console.log('Hank\'s speed', hankSpeed.toString());
+
+
+// homework: John travels two kilometer, and then another 350 feet. How much did he travel, in km?
+var johnFirst = new mco.UnitValue(2000, MetricSystem.METRE);
+var johnSecondFeet = new mco.UnitValue(350, UsCustomarySystem.FOOT);
+var johnSecondMetre = mco.UnitTransformer.transform(johnSecondFeet, MetricSystem.METRE);
+var johnDistance = johnFirst.add(johnSecondMetre);
+console.log('John\'s total distance', johnDistance.toString());
