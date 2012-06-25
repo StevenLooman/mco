@@ -31,4 +31,4 @@ var hankSpeed = hankAcceleration.multiply(hankTime);
 
 console.log('Hank\'s acceleration', hankAcceleration.toString());
 console.log('Hank\'s time', hankTime.toString());
-console.log('Hank\'s speed', hankSpeed.getSimplified().toString());
+console.log('Hank\'s speed', hankSpeed.toString());
