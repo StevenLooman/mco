@@ -20,6 +20,18 @@ module.exports = {
         assert.equal(result.getUnit(), metre);
     },
 
+    test_UnitValue_addDifferentPrefix: function(beforeExit, assert) {
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+        var kilometre = metre.applyPrefix(mco.Prefix.KILO);
+        var unitValue1 = new mco.UnitValue(10, kilometre);
+        var unitValue2 = new mco.UnitValue(5, metre);
+
+        var result = unitValue1.add(unitValue2);
+
+        assert.equal(10.005, result.getValue());
+        assert.equal(result.getUnit(), kilometre);
+    },
+
     test_UnitValue_subtract: function(beforeExit, assert) {
         var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
         var unitValue1 = new mco.UnitValue(10, metre);
@@ -27,7 +39,7 @@ module.exports = {
 
         var result = unitValue1.subtract(unitValue2);
 
-        assert.equal(5, result.getValue(metre));
+        assert.equal(5, result.getValue());
         assert.equal(result.getUnit(), metre);
     },
 
