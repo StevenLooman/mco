@@ -64,8 +64,8 @@ module.exports = {
     },
 
     test_JsonSerializer_readPrefix: function(beforeExit, assert) {
-        var prefix = mco.Prefix.ONE;
-        var input = '{"symbol":"","name":"","factor":1}';
+        var prefix = mco.Prefix.KILO;
+        var input = '{"symbol":"k","name":"kilo","factor":1000}';
 
         var o = JSON.parse(input);
         var output = mco.JsonSerializer.readPrefix(o);

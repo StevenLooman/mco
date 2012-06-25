@@ -9,6 +9,37 @@ module.exports = {
         assert.eql('10 [m]', unitValue.toString());
     },
 
+    test_UnitValue_getValue: function(beforeExist, assert) {
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+        var unitValue = new mco.UnitValue(10, metre);
+
+        assert.eql(10, unitValue.getValue());
+    },
+
+    test_UnitValue_getValue2: function(beforeExist, assert) {
+        var kilometre = new mco.BaseUnit(mco.Quantity.LENGTH, mco.Prefix.KILO, 'm');
+        var unitValue = new mco.UnitValue(10, kilometre);
+
+        assert.eql(10, unitValue.getValue());
+    },
+
+    test_UnitValue_getValue_prefixed: function(beforeExist, assert) {
+        var kilo = mco.Prefix.KILO;
+        var kilometre = new mco.BaseUnit(mco.Quantity.LENGTH, mco.Prefix.KILO, 'm');
+        var unitValue = new mco.UnitValue(10, kilometre);
+
+        assert.eql(10, unitValue.getValue(kilo));
+    },
+
+    test_UnitValue_getValue_prefixed2: function(beforeExist, assert) {
+        var kilometre = new mco.BaseUnit(mco.Quantity.LENGTH, mco.Prefix.KILO, 'm');
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+        var unitValue = new mco.UnitValue(10, kilometre);
+
+        var one = mco.Prefix.ONE;
+        assert.eql(10000, unitValue.getValue(one));
+    },
+
     test_UnitValue_add: function(beforeExit, assert) {
         var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
         var unitValue1 = new mco.UnitValue(10, metre);
@@ -16,7 +47,7 @@ module.exports = {
 
         var result = unitValue1.add(unitValue2);
 
-        assert.equal(15, result.getValue(metre));
+        assert.equal(15, result.getValue());
         assert.equal(result.getUnit(), metre);
     },
 
