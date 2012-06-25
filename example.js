@@ -36,7 +36,7 @@ console.log('Hank\'s speed', hankSpeed.toString());
 
 
 // homework: John travels two kilometer, and then another 350 feet. How much did he travel, in km?
-var johnFirst = new mco.UnitValue(2000, MetricSystem.METRE);
+var johnFirst = new mco.UnitValue(2, mco.Prefix.KILO, MetricSystem.METRE);
 var johnSecondFeet = new mco.UnitValue(350, UsCustomarySystem.FOOT);
 var johnSecondMetre = mco.UnitTransformer.transform(johnSecondFeet, MetricSystem.METRE);
 var johnDistance = johnFirst.add(johnSecondMetre);
