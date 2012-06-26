@@ -44,6 +44,5 @@ module.exports = {
         assert.eql(temperatureFahrenheit.getUnit(), result.getUnit());
         var valueDifference = Math.abs(temperatureFahrenheit.getValue() - result.getValue()); // account for rounding errors
         assert.equal(valueDifference < 1e-10, true);
-    },
-
+    }
 };

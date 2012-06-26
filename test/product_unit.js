@@ -28,7 +28,7 @@ module.exports = {
         assert.equal('[m/s/s]', metrePerSquareSecond.toString());
     },
 
-    test_ProductUnit_divide: function(beforeExit, assert) {
+    test_ProductUnit_multiply: function(beforeExit, assert) {
         var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
         var quadraticMetre = metre.multiply(metre);
         var cubicMetre = quadraticMetre.multiply(metre);
@@ -60,6 +60,15 @@ module.exports = {
         assert.equal(metrePerSecond.equals(newtonMetre), false);
     },
 
+    test_ProductUnit_getSimplified: function(beforeExit, assert) {
+        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+        var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
+        var metrePerSecond = metre.divide(second);
+
+        var result = metrePerSecond.getSimplified();
+        assert.equal(true, result.equals(metrePerSecond));
+    },
+
     test_ProductUnit_getSimplified_to_BaseUnit: function(beforeExit, assert) {
         var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
         var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
@@ -70,7 +79,7 @@ module.exports = {
         assert.equal(true, result.equals(metre));
     },
 
-    test_ProductUnit_getSimplify_to_ProductUnit: function(beforeExit, assert) {
+    test_ProductUnit_getSimplified_to_ProductUnit: function(beforeExit, assert) {
         var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
         var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
         var metrePerSecond = metre.divide(second);
@@ -78,15 +87,5 @@ module.exports = {
 
         var result = input.getSimplified();
         assert.equal(true, result.equals(metrePerSecond));
-    },
-
-    test_ProductUnit_getSimplify_to_ProductUnit: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
-        var metrePerSecond = metre.divide(second);
-
-        var result = metrePerSecond.getSimplified();
-        assert.equal(true, result.equals(metrePerSecond));
-    },
-
+    }
 };

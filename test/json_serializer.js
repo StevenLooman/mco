@@ -79,5 +79,5 @@ module.exports = {
 
         var output = mco.JsonSerializer.deserialize(input);
         assert.eql(length, output);
-    },
+    }
 };

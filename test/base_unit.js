@@ -56,6 +56,5 @@ module.exports = {
         var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
 
         assert.equal(true, metre.equals(metre.getSimplified()));
-    },
-
+    }
 };

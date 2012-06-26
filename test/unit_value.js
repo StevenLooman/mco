@@ -149,5 +149,5 @@ module.exports = {
 
         assert.equal(false, result.equals(result.getSimplified()));
         mco.UnitValue.autoSimplify = true;
-    },
+    }
 };
