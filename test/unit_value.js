@@ -50,7 +50,7 @@ describe('UnitValue', function() {
 
         it('should be able to add one UnitValue to another of the same unit, different prefix', function() {
             var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-            var kilometre = metre.applyPrefix(mco.Prefix.KILO);
+            var kilometre = metre.setPrefix(mco.Prefix.KILO);
             var unitValue1 = new mco.UnitValue(10, kilometre);
             var unitValue2 = new mco.UnitValue(5, metre);
 
@@ -132,6 +132,17 @@ describe('UnitValue', function() {
             var unitValue2 = new mco.UnitValue(10, second);
 
             var result = unitValue1.divide(unitValue2).multiply(unitValue2);
+
+            assert.ok(result.equals(result.getSimplified()));
+        });
+
+        it('should be able to simplify multiplication and division', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
+            var unitValue1 = new mco.UnitValue(10, metre);
+            var unitValue2 = new mco.UnitValue(10, second);
+
+            var result = unitValue1.multiply(unitValue2).divide(unitValue2);
 
             assert.ok(result.equals(result.getSimplified()));
         });
