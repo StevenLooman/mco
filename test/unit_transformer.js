@@ -49,4 +49,22 @@ describe('UnitTransformer', function() {
             assert.equal(valueDifference < 1e-10, true);
         });
     });
+
+    describe('common unit transformers', function() {
+        it('should have the m to ft UnitTransformer', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var feet = new mco.BaseUnit(mco.Quantity.LENGTH, 'ft');
+
+            assert.ok(mco.UnitTransformer.getTransformer(metre, feet));
+        });
+
+        it('should be able to transform using utility functions', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var feet = new mco.BaseUnit(mco.Quantity.LENGTH, 'ft');
+            var lengthMetre = new mco.UnitValue(100, metre);
+
+            var result = mco.UnitTransformer.transform(lengthMetre, feet);
+            assert.ok(result);
+        });
+    });
 });
