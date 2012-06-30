@@ -1,153 +1,152 @@
 var mco = require('..');
+var assert = require('assert');
 
+describe('UnitValue', function() {
+    describe('#toString()',  function() {
+        it('should return a string, containing the value and the unit encapsulated with brackets', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var unitValue = new mco.UnitValue(10, metre);
 
-module.exports = {
-    test_UnitValue_toString: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var unitValue = new mco.UnitValue(10, metre);
+            assert.deepEqual('10 [m]', unitValue.toString());
+        });
+    });
 
-        assert.eql('10 [m]', unitValue.toString());
-    },
+    describe('#getValue()',  function() {
+        it('should return the value', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var unitValue = new mco.UnitValue(10, metre);
 
-    test_UnitValue_getValue: function(beforeExist, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var unitValue = new mco.UnitValue(10, metre);
+            assert.deepEqual(10, unitValue.getValue());
+        });
 
-        assert.eql(10, unitValue.getValue());
-    },
+        it('should return the prefixed value, when the unit is prefixed', function() {
+            var kilometre = new mco.BaseUnit(mco.Quantity.LENGTH, mco.Prefix.KILO, 'm');
+            var unitValue = new mco.UnitValue(10, kilometre);
 
-    test_UnitValue_getValue2: function(beforeExist, assert) {
-        var kilometre = new mco.BaseUnit(mco.Quantity.LENGTH, mco.Prefix.KILO, 'm');
-        var unitValue = new mco.UnitValue(10, kilometre);
+            assert.deepEqual(10, unitValue.getValue());
+        });
 
-        assert.eql(10, unitValue.getValue());
-    },
+        it('should return the value, when the unit is prefixed, but another prefix is asked', function() {
+            var kilometre = new mco.BaseUnit(mco.Quantity.LENGTH, mco.Prefix.KILO, 'm');
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var unitValue = new mco.UnitValue(10, kilometre);
 
-    test_UnitValue_getValue_prefixed: function(beforeExist, assert) {
-        var kilo = mco.Prefix.KILO;
-        var kilometre = new mco.BaseUnit(mco.Quantity.LENGTH, mco.Prefix.KILO, 'm');
-        var unitValue = new mco.UnitValue(10, kilometre);
+            var one = mco.Prefix.ONE;
+            assert.deepEqual(10000, unitValue.getValue(one));
+        });
+    });
 
-        assert.eql(10, unitValue.getValue(kilo));
-    },
+    describe('#add()', function() {
+        it('should be able to add one UnitValue to another of the same unit and prefix', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var unitValue1 = new mco.UnitValue(10, metre);
+            var unitValue2 = new mco.UnitValue(5, metre);
 
-    test_UnitValue_getValue_prefixed2: function(beforeExist, assert) {
-        var kilometre = new mco.BaseUnit(mco.Quantity.LENGTH, mco.Prefix.KILO, 'm');
-        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var unitValue = new mco.UnitValue(10, kilometre);
+            var result = unitValue1.add(unitValue2);
 
-        var one = mco.Prefix.ONE;
-        assert.eql(10000, unitValue.getValue(one));
-    },
+            assert.equal(15, result.getValue());
+            assert.equal(result.getUnit(), metre);
+        });
 
-    test_UnitValue_add: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var unitValue1 = new mco.UnitValue(10, metre);
-        var unitValue2 = new mco.UnitValue(5, metre);
+        it('should be able to add one UnitValue to another of the same unit, different prefix', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var kilometre = metre.applyPrefix(mco.Prefix.KILO);
+            var unitValue1 = new mco.UnitValue(10, kilometre);
+            var unitValue2 = new mco.UnitValue(5, metre);
 
-        var result = unitValue1.add(unitValue2);
+            var result = unitValue1.add(unitValue2);
 
-        assert.equal(15, result.getValue());
-        assert.equal(result.getUnit(), metre);
-    },
+            assert.equal(10.005, result.getValue());
+            assert.equal(result.getUnit(), kilometre);
+        });
+    });
 
-    test_UnitValue_addDifferentPrefix: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var kilometre = metre.applyPrefix(mco.Prefix.KILO);
-        var unitValue1 = new mco.UnitValue(10, kilometre);
-        var unitValue2 = new mco.UnitValue(5, metre);
+    describe('#subtract()', function() {
+        it('should be able to subtract one UnitValue from another of the same unit and prefix', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var unitValue1 = new mco.UnitValue(10, metre);
+            var unitValue2 = new mco.UnitValue(5, metre);
 
-        var result = unitValue1.add(unitValue2);
+            var result = unitValue1.subtract(unitValue2);
 
-        assert.equal(10.005, result.getValue());
-        assert.equal(result.getUnit(), kilometre);
-    },
+            assert.equal(5, result.getValue());
+            assert.equal(result.getUnit(), metre);
+        });
+    });
 
-    test_UnitValue_subtract: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var unitValue1 = new mco.UnitValue(10, metre);
-        var unitValue2 = new mco.UnitValue(5, metre);
+    describe('#multiply()', function() {
+        it('should be able to multiply one UnitValue with another', function() {
+            var newton = new mco.BaseUnit(mco.Quantity.FORCE, 'N');
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var unitValue1 = new mco.UnitValue(10, newton);
+            var unitValue2 = new mco.UnitValue(5, metre);
 
-        var result = unitValue1.subtract(unitValue2);
+            var newtonMetre = newton.multiply(metre);
+            var result = unitValue1.multiply(unitValue2);
 
-        assert.equal(5, result.getValue());
-        assert.equal(result.getUnit(), metre);
-    },
+            assert.equal(50, result.getValue());
+            assert.deepEqual(newtonMetre, result.getUnit());
+        });
+    });
 
-    test_UnitValue_multiply: function(beforeExit, assert) {
-        var newton = new mco.BaseUnit(mco.Quantity.FORCE, 'N');
-        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var unitValue1 = new mco.UnitValue(10, newton);
-        var unitValue2 = new mco.UnitValue(5, metre);
+    describe('#divide()', function() {
+        it('should be able to divide one UnitValue by another', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
+            var unitValue1 = new mco.UnitValue(10, metre);
+            var unitValue2 = new mco.UnitValue(5, second);
 
-        var newtonMetre = newton.multiply(metre);
-        var result = unitValue1.multiply(unitValue2);
+            var metrePerSecond = metre.divide(second);
+            var result = unitValue1.divide(unitValue2);
 
-        assert.equal(50, result.getValue());
-        assert.eql(newtonMetre, result.getUnit());
-    },
+            assert.equal(2, result.getValue());
+            assert.deepEqual(metrePerSecond, result.getUnit());
+        });
+    });
 
-    test_UnitValue_divide: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
-        var unitValue1 = new mco.UnitValue(10, metre);
-        var unitValue2 = new mco.UnitValue(5, second);
+    describe('#equals()', function() {
+        it ('should return true for equal units', function() {
+            var metre1 = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var metre2 = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var unitValue1 = new mco.UnitValue(10, metre1);
+            var unitValue2 = new mco.UnitValue(10, metre2);
 
-        var metrePerSecond = metre.divide(second);
-        var result = unitValue1.divide(unitValue2);
+            assert.equal(true, unitValue1.equals(unitValue2));
+        });
 
-        assert.equal(2, result.getValue());
-        assert.eql(metrePerSecond, result.getUnit());
-    },
+        it ('should return false for equal units', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
+            var unitValue1 = new mco.UnitValue(10, metre);
+            var unitValue2 = new mco.UnitValue(10, second);
 
-    test_UnitValue_equals: function(beforeExit, assert) {
-        var metre1 = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var metre2 = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var unitValue1 = new mco.UnitValue(10, metre1);
-        var unitValue2 = new mco.UnitValue(10, metre2);
+            assert.equal(false, unitValue1.equals(unitValue2));
+        });
+    });
 
-        assert.equal(true, unitValue1.equals(unitValue2));
-    },
+    describe('#getSimplified()', function() {
+        it('should be able to simplify division and multiplication', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
+            var unitValue1 = new mco.UnitValue(10, metre);
+            var unitValue2 = new mco.UnitValue(10, second);
 
-    test_UnitValue_not_equals: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
-        var unitValue1 = new mco.UnitValue(10, metre);
-        var unitValue2 = new mco.UnitValue(10, second);
+            var result = unitValue1.divide(unitValue2).multiply(unitValue2);
 
-        assert.equal(false, unitValue1.equals(unitValue2));
-    },
+            assert.equal(true, result.equals(result.getSimplified()));
+        });
 
-    test_UnitValue_ensureSameUnit: function(beforeExit, assert) {
-        var metre1 = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var metre2 = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var unitValue1 = new mco.UnitValue(10, metre1);
-        var unitValue2 = new mco.UnitValue(5, metre2);
+        it('should not automatically simplify when auto-simplification is off', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
+            var unitValue1 = new mco.UnitValue(10, metre);
+            var unitValue2 = new mco.UnitValue(10, second);
 
-        var result = unitValue1.add(unitValue2);
-    },
+            mco.UnitValue.autoSimplify = false;
+            var result = unitValue1.divide(unitValue2).multiply(unitValue2);
 
-    test_UnitValue_getSimplified: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
-        var unitValue1 = new mco.UnitValue(10, metre);
-        var unitValue2 = new mco.UnitValue(10, second);
-
-        var result = unitValue1.divide(unitValue2).multiply(unitValue2);
-
-        assert.equal(true, result.equals(result.getSimplified()));
-    },
-
-    test_UnitValue_getSimplified_no_autoSimplify: function(beforeExit, assert) {
-        var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
-        var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
-        var unitValue1 = new mco.UnitValue(10, metre);
-        var unitValue2 = new mco.UnitValue(10, second);
-
-        mco.UnitValue.autoSimplify = false;
-        var result = unitValue1.divide(unitValue2).multiply(unitValue2);
-
-        assert.equal(false, result.equals(result.getSimplified()));
-        mco.UnitValue.autoSimplify = true;
-    }
-};
+            assert.equal(false, result.equals(result.getSimplified()));
+            mco.UnitValue.autoSimplify = true;
+        });
+    });
+});
