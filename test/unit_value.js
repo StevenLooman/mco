@@ -111,7 +111,7 @@ describe('UnitValue', function() {
             var unitValue1 = new mco.UnitValue(10, metre1);
             var unitValue2 = new mco.UnitValue(10, metre2);
 
-            assert.equal(true, unitValue1.equals(unitValue2));
+            assert.ok(unitValue1.equals(unitValue2));
         });
 
         it ('should return false for equal units', function() {
@@ -120,7 +120,7 @@ describe('UnitValue', function() {
             var unitValue1 = new mco.UnitValue(10, metre);
             var unitValue2 = new mco.UnitValue(10, second);
 
-            assert.equal(false, unitValue1.equals(unitValue2));
+            assert.ok(!unitValue1.equals(unitValue2));
         });
     });
 
@@ -133,7 +133,7 @@ describe('UnitValue', function() {
 
             var result = unitValue1.divide(unitValue2).multiply(unitValue2);
 
-            assert.equal(true, result.equals(result.getSimplified()));
+            assert.ok(result.equals(result.getSimplified()));
         });
 
         it('should not automatically simplify when auto-simplification is off', function() {
@@ -145,7 +145,7 @@ describe('UnitValue', function() {
             mco.UnitValue.autoSimplify = false;
             var result = unitValue1.divide(unitValue2).multiply(unitValue2);
 
-            assert.equal(false, result.equals(result.getSimplified()));
+            assert.ok(!result.equals(result.getSimplified()));
             mco.UnitValue.autoSimplify = true;
         });
     });
