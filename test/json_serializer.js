@@ -83,6 +83,32 @@ describe('JsonSerializer', function() {
     });
 
     describe('#deserialize()',  function() {
+        it('should de-serialize a BaseUnit from json', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var input = '{"quantity":"Length","prefix":{"symbol":"","name":"","factor":1},"symbol":"m"}';
+
+            var output = mco.JsonSerializer.deserialize(input);
+            assert.deepEqual(metre, output);
+        });
+
+        it('should de-serialize a ProductUnit from json', function() {
+            var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
+            var second = new mco.BaseUnit(mco.Quantity.TIME, 's');
+            var metrePerSecond = metre.divide(second);
+            var input = '{"elements":[["",{"quantity":"Length","prefix":{"symbol":"","name":"","factor":1},"symbol":"m"}],["/",{"quantity":"Time","prefix":{"symbol":"","name":"","factor":1},"symbol":"s"}]]}';
+
+            var output = mco.JsonSerializer.deserialize(input);
+            assert.deepEqual(metrePerSecond, output);
+        });
+
+        it('should de-serialize a Prefix from json', function() {
+            var kilo = mco.Prefix.KILO;
+            var input = '{"symbol":"k","name":"kilo","factor":1000}';
+
+            var output = mco.JsonSerializer.deserialize(input);
+            assert.deepEqual(kilo, output);
+        });
+
         it('should de-serialize a UnitValue from json', function() {
             var metre = new mco.BaseUnit(mco.Quantity.LENGTH, 'm');
             var length = new mco.UnitValue(10, metre);
