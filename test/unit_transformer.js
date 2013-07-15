@@ -64,6 +64,7 @@ describe('UnitTransformer', function() {
             var lengthMetre = new mco.UnitValue(100, metre);
 
             var result = mco.UnitTransformer.transform(lengthMetre, feet);
+
             assert.ok(result);
         });
     });
