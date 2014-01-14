@@ -1,4 +1,4 @@
-var mco = require('..');
+var mco = process.env.JS_COV ? require('../lib-cov') : require('../lib');
 var assert = require('assert');
 
 describe('BaseUnit', function() {
