@@ -15,7 +15,7 @@
     },
     "devDependencies": {
         "mocha": "1.16.2",
-        "jscover": "0.2.1",
+        "jscover": "0.2.4",
         "mocha-lcov-reporter": "0.0.1"
     },
     "directories": {
